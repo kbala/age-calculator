@@ -34,6 +34,16 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        
+        var options = {
+      		  date: new Date(),
+      		  mode: 'date'
+      		};
+      		// calling show() function with options and a result handler
+        window.plugins.datePicker.show(options, function(date){
+      		  console.log("date result " + date);  
+      		});
+      		
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
