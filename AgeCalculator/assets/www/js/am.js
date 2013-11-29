@@ -1,5 +1,5 @@
 /*
-JS library for adaptivemedia
+JS library for Adaptive Media
 */
 (function AM() {
 
