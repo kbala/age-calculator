@@ -19,6 +19,7 @@
 var app = {
     // Application Constructor
     initialize: function() {
+    	
         this.bindEvents();
     },
     // Bind Event Listeners
@@ -34,26 +35,20 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        
-        var options = {
-      		  date: new Date(),
-      		  mode: 'date'
-      		};
-      		// calling show() function with options and a result handler
-        window.plugins.datePicker.show(options, function(date){
-      		  console.log("date result " + date);  
-      		});
-      		
+        alert();
+     // defining options
+    	var options = {
+    	  date: new Date(),
+    	  mode: 'date'
+    	};
+    	// calling show() function with options and a result handler
+    	window.plugins.datePicker.show(options, function(date){
+    	  console.log("date result " + date);  
+    	});
+    	
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
+    	
     }
 };
