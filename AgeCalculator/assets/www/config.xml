@@ -17,6 +17,8 @@
     <preference name="webviewbounce" value="true" />
     <feature name="DatePickerPlugin">
         <param name="android-package" value="com.adaptivemedia.datepicker.DatePickerPlugin" />
-    </feature>
+    </feature
+
+   
     
 </widget>

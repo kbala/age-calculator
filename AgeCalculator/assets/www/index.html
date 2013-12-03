@@ -24,68 +24,181 @@
 <meta name="viewport"
 	content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+<style>
+#header {
+	border: solid 1px #362f2d;
+	height: 52px;
+	background: #e7e7e7;
+}
+
+#header h4 {
+	margin: 0;
+	padding: 0;
+}
+
+#header h4 img {
+	padding: 9px;
+}
+
+#content {
+	width: 100%;
+	height: 100%;	
+	background-color:;
+}
+
+#header,#footer .btn:first-child,#footer .btn:last-child {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0 !important;
+}
+
+.main {
+	width: 100%;
+	height: 33.333%;
+	border-bottom: 1px solid #e7e7e7;
+	display: block;	
+	padding: 0;
+}
+
+.main .left-box {
+	width: 30%;
+	height: 60%;
+	float: left;
+	margin: 10%;
+	
+	display: block;
+	padding: 9% 0;
+}
+
+.main .right-box {
+	width: 30%;
+	height: 60%;
+	float: right;
+	margin: 10%;
+	
+	display: block;
+	padding: 9% 0;
+}
+
+.button {
+	height: 30px;
+	top: 50%;
+	margin-top: -15px;
+	position: relative;
+	border: 0px;
+}
+</style>
 <title>Age Calculator</title>
 </head>
 <body>
-	<div>
-		<div class="navbar navbar-default" role="navigation">
-			<div class="navbar-header">
-				<p class="navbar-brand">Age Calculator</p>
+
+
+	<div id="header">
+		<h4>
+			<img src="img/age.png">Age Calculator
+		</h4>
+	</div>
+	<div id="content">
+		<div class="main" style="border:solid 1px red;">
+			<div class="left-box">
+				<div>
+					<h3>Date of Birth:</h3>
+				</div>
+				<div>
+					<h3>
+						<p id="label_birthDate"></p>
+					</h3>
+				</div>
+			</div>
+			<div class="right-box">
+				<input type="button" class="btn-lg" value="Date" id="birthDate"
+					onclick="launchDate(id);">
 			</div>
 		</div>
-		<div class="panel-body">
-			<form role="form">
-				<div class="form-group">
-					<label for="birthDate">Birth Date:</label> <input type="text"
-						class="form-control" id="birthDate" onclick="launchDate(this)" />
+		<div class="main">
+			<div class="left-box">
+				<div>
+					<h3>Today's Date:</h3>
 				</div>
-				<div class="form-group">
-					<label for="fromDate">Today Date:</label> <input type="text"
-						class="form-control" id="fromDate" onclick="launchDate(this)">
+				<div>
+					<h3>
+						<p id="label_endDate">
+					</h3>
+					</p>
 				</div>
-				<button type="button" id="submit"
-					class="btn btn-primary btn-lg btn-block" onclick="calc();">
-					Calcuate</button>
-			</form>
-			<table class="table">
-				<tr>
-					<td style="width: 15px; border: 0">Years</td>
-					<td style="width: 15px; border: 0">:</td>
-					<td style="border: 0" id="years"></td>
-				</tr>
-				<tr>
-					<td style="width: 15px">Months</td>
-					<td style="width: 15px">:</td>
-					<td id="months"></td>
-				</tr>
-				<tr>
-					<td style="width: 15px">Days</td>
-					<td style="width: 15px">:</td>
-					<td id="days"></td>
-				</tr>
-				<tr>
-					<td style="width: 15px"></td>
-					<td style="width: 15px"></td>
-					<td></td>
-				</tr>
+			</div>
+			<div class="right-box">
+				<input type="button" value="Date" class="btn-lg" id="endDate"
+					onclick="launchDate(id);">
+			</div>
+		</div>
 
+		<div class="main">
+			<table class="table"
+				style="margin-top: 50px; left: 0; width: 100%;">
+				<th class="active"
+					style="width: 15px; padding-left: 20px; text-align: center"><h3>Years</h3></th>
+				<th class="active" style="width: 15px; text-align: center"><h3>Months</h3></th>
+				<th class="active" style="width: 15px; text-align: center"><h3>Days</h3></th>
+				<tr>
+					<h3>
+						<td id="years" style="text-align: center"></td>
+					</h3>
+					<h3>
+						<td id="months" style="text-align: center"></td>
+					</h3>
+					<h3>
+						<td id="days" style="text-align: center"></td>
+					</h3>
+				</tr>
 			</table>
 		</div>
+
 	</div>
 	<script type="text/javascript" src="js/cordova.js"></script>
 	<script type="text/javascript" src="plugins/datePickerPlugin.js"></script>
 	<script type="text/javascript" src="js/am.js"></script>
 	<script type="text/javascript">
 		document.addEventListener('deviceready', onDeviceReady, false);
+		RESIZE_EV = window.hasOwnProperty('onorientationchange') ? 'orientationchange'
+				: 'resize';
+		window.addEventListener(RESIZE_EV, resizeHandler);
+
+		function resizeHandler(event) {			
+			var headerHeight = document.getElementById("header")
+					.getBoundingClientRect().height;
+			
+			document.getElementById("content").style.height = (window.innerHeight - headerHeight)
+					+ 'px';
+			console.log("#content width:" + window.innerWidth);
+			console.log("#content height:"
+					+ (window.innerHeight - headerHeight));
+			alert(window.innerWidth);
+			alert(window.innerHeight);
+			
+
+		}
 
 		function onDeviceReady() {
 			console.log("device is ready");
+			var today = new Date();
+			var d = today.getDate();
+			var m = today.getMonth() + 1;
+			var y = today.getFullYear();
+			document.getElementById("label_endDate").innerHTML = y + "/" + m
+					+ "/" + d;
+
+			resizeHandler();
 		}
 
 		function calc() {
 			try {
-				var bDate = new Date(document.getElementById('birthDate').value);
-				var fDate = new Date(document.getElementById('fromDate').value);
+
+				var bDate = new Date(
+						document.getElementById('label_birthDate').innerHTML);
+				var fDate = new Date(
+						document.getElementById('label_endDate').innerHTML);
 				var result = AM.utils.dateDiff(bDate, fDate);
 				document.getElementById("years").innerHTML = result.years;
 				document.getElementById("months").innerHTML = result.months;
@@ -95,15 +208,20 @@
 			}
 		}
 
-		function launchDate(e) {
+		function launchDate(id) {
 			var options = {
 				date : new Date(),
 				mode : 'date'
 			};
+
 			// calling show() function with options and a result handler
 			window.plugins.datePicker.show(options, function(date) {
-				e.value = date;
+				document.getElementById("label_" + id).innerHTML = date;
+				alert(id);
+				calc();
+
 			});
+
 		}
 	</script>
 </body>
